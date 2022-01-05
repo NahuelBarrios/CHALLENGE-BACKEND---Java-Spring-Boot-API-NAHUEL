@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Nueva pelicula</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <h1>Nueva pelicula</h1>
+        <a th:href="@{/}">Volver al inicio</a>
+        <br/><br/>
+        <form th:action="@{/guardarpeliculanueva}" method="post" th:object="${peliculas}" enctype="multipart/form-data">
+            <input type="hidden" name="idPeliculas" th:field="*{idPeliculas}"/> <!-- Le ponemos el hidden. ya que sino al editar, no guardamos el Id y no nos va a editar la info, va a agregar otro personaje con la nueva info y la vieja sigue igual. En el caso de hacer un insert, el id va a ser null entonces se hace un add. pero si tiene valor, se hace un update -->
+            <label for="imagenpelicula">Imagen:</label>
+            <input type="file" name="file" /><!--th:field="*{imagenPeliculas}"-->
+            <br/><br/>
+            <label for="titulopelicula">Titulo:</label>
+            <input type="text" name="titulopelicula" th:field="*{tituloPeliculas}"/>
+            <br/><br/>
+            <label for="fechacreacion">Año de Creacion:</label>
+            <input type="text" name="fechacreacion" th:field="*{fechaCreacion}"/>
+            <br/><br/>
+            <label for="calificacion">Calificacion:</label>
+            <input type="text" name="calificacion" th:field="*{calificacionPeliculas}"/>
+            <br/><br/>
+            <label for="personajesasociados">Personajes Asociados:</label>
+            <input type="text" name="personajesasociados" th:field="*{personajesAsociados}"/>
+            <br/><br/>
+            <input type="submit" name="guardar" value="Guardar"/>
+        </form>
+    </body>
+</html>

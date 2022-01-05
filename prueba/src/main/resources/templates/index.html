@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Inicio</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        
+        
+        <h1>Que desea?</h1>
+        <br/><br/>
+        <form method="POST" th:action="@{/logout}">
+            <a href="#" onclick="this.parentNode.submit()">Cerrar sesion</a>
+            <br/>
+            <b>Bienvenid@: </b><span sec:authentication="name"> Nombre del usuario que hizo el login</span>
+        </form> 
+        <br/>
+        <a th:href="@{/personaje}">Personajes</a>
+        <br/>
+        <a th:href="@{/pelicula}">Peliculas</a>
+        <br/>
+        <a th:href="@{/genero}">Generos</a>
+        
+        <footer>
+            <b> Todos los derechos reservados. Nahuel Barrios 2022</b>
+            <b>Rol: </b><span sec:authentication="principal.authorities"> Roles</span>
+        </footer>
+       
+    </body>
+</html>

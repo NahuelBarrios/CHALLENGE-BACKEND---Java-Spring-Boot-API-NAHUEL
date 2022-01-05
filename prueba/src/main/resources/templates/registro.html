@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Registro</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <h1>Registro</h1>
+        
+        <form th:action="@{/guardarnuevoregistro}" method="post" th:object="${usuario}">
+            <label for="username">Nuevo Nombre de Usuario: </label>
+            <input type="text" name="username" th:field="*{username}"/>
+            <br/><br/>
+            <label for="password">Nueva Contraseña: </label>
+            <input type="password" name="password" th:field="*{password}"/>
+            <br/><br/>
+            <!--   <input type="hidden" name="roles" th:field="*{roles}"/>-->
+            <input type="submit" name="guardar" value="Guardar"/>
+        </form>
+    </body>
+</html>

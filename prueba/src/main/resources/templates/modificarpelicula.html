@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">  
+    <head>
+        <title>Modificar Pelicula</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <h1>Modificar pelicula</h1>
+
+        <h2>Se muestra lista de las peliculas</h2>
+
+        <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/agregarnuevapelicula}">Agregar Nueva Pelicula</a>
+
+        <div th:if="${peliculas != null}">
+            <br/><br/>
+            <form th:action="@{/buscadorpelicula}" method="POST">
+                Buscar Pelicula:
+                <input type="text" name="titulo"/>
+                <input type="submit" value="Buscar" />
+            </form>
+            <br/>
+
+            <table border="1">
+                <tr>
+                    <th>imagenPeliculas</th>
+                    <th>tituloPeliculas</th>
+                    <th>fechaCreacion</th>
+                    <th>calificacionPeliculas</th>
+                    <th>personajesAsociados</th>
+                    <th sec:authorize="hasRole('ROLE_ADMIN')">Editar</th>
+                    <th sec:authorize="hasRole('ROLE_ADMIN')">Eliminar</th>
+                </tr>
+                <tr th:each="pelicula: ${peliculas}">
+                    <td><img th:src="@{'/imagenes/' + ${pelicula.imagenPeliculas}}" th:alt="${pelicula.imagenPeliculas}" style="width: 100%;height: 50%;"/></td>
+                    <td th:text="${pelicula.tituloPeliculas}">Muestra titulo</td>
+                    <td th:text="${pelicula.fechaCreacion}">Muestra fecha de creacion</td>
+                    <td th:text="${pelicula.calificacionPeliculas}"> Muestra calificacion</td>
+                    <td th:text="${pelicula.personajesAsociados}">Muestra personajes asociados</td>
+                    <td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/editarpelicula/} + ${pelicula.idPeliculas}" th:text="Editar"/></td>
+                    <td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/eliminarpelicula/} + ${pelicula.idPeliculas}" th:text="Eliminar"/></td>
+                </tr>
+            </table>
+        </div>
+        <div th:if="${peliculas == null}">
+            Es null
+        </div>
+        <a th:href="@{/}">Volver al inicio</a>
+    </body>
+</html>

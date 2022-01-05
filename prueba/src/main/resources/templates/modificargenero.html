@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Modificar genero</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <h1>Modificar genero</h1>
+        
+         <h2>Se muestra lista de las peliculas</h2>
+
+        <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/agregarnuevogenero}">Agregar Nuevo Genero</a>
+
+        <div th:if="${generos != null}">
+            <table border="1">
+                <tr>
+                    <th>nombreGenero</th>
+                    <th>imagenGenero</th>
+                    <th>peliculaAsociada</th>
+                    <th sec:authorize="hasRole('ROLE_ADMIN')">Editar</th>
+                    <th sec:authorize="hasRole('ROLE_ADMIN')">Eliminar</th>
+                </tr>
+                <tr th:each="genero : ${generos}">
+                    <td th:text="${genero.nombreGenero}">Muestra Nombre</td>
+                    <td><img th:src="@{'/imagenes/' + ${genero.imagenGenero}}" th:alt="${genero.imagenGenero}" style="width: 100%;height: 50%;"/></td>
+                    <td th:text="${genero.peliculaAsociada}">Muestra Pelicula</td>
+                    <td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/editargenero/} + ${genero.idGenero}" th:text="Editar"/></td>
+                    <td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/eliminargenero/} + ${genero.idGenero}" th:text="Eliminar"/></td>
+                </tr>
+            </table>
+        </div>
+        <div th:if="${generos == null}">
+            Es null
+        </div>
+        <a th:href="@{/}">Volver al inicio</a>
+    </body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Nuevo Genero</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <h1>Nuevo Genero</h1>
+        <a th:href="@{/}">Volver al inicio</a>
+        <br/><br/>
+        <form th:action="@{/guardargeneronuevo}" method="post" th:object="${genero}" enctype="multipart/form-data">
+            <input type="hidden" name="idGenero" th:field="*{idGenero}"/> <!-- Le ponemos el hidden. ya que sino al editar, no guardamos el Id y no nos va a editar la info, va a agregar otro personaje con la nueva info y la vieja sigue igual. En el caso de hacer un insert, el id va a ser null entonces se hace un add. pero si tiene valor, se hace un update -->
+            <label for="nombreGenero">Nombre: </label>
+            <input type="text" name="nombreGenero" th:field="*{nombreGenero}"/>
+            <br/><br/>
+            <label for="imagenGenero">Imagen: </label>
+            <input type="file" name="file"/>
+            <br/><br/>
+            <label for="peliculaAsociada">Pelicula Asociada: </label>
+            <input type="text" name="peliculaAsociada" th:field="*{peliculaAsociada}"/>
+            <br/><br/>
+            <input type="submit" name="guardar" value="Guardar"/>
+        </form>
+    </body>
+</html>

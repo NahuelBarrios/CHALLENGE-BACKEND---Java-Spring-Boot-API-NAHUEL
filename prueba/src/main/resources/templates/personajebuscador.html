@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Buscador personaje</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <h1>Se muestra informacion del personaje buscado</h1>
+        <br/><br/>
+        <a th:href="@{/}">Volver al inicio</a>
+        <br/><br/>
+        <div>
+        <table border="1">
+                <tr>
+                    <th>imagenPersonaje</th>
+                    <th>nombrePersonaje</th>
+                    <th>edadPersona</th>
+                    <th>pesoPersonaje</th>
+                    <th>historiaPersonaje</th>
+                    <th>peliculasAsociadasPersonaje</th>
+                </tr>
+                <tr th:object="${personaje}">
+                    <td> <img th:src="@{'/imagenes/' + ${personaje.imagenPersonaje}}" th:alt="${personaje.imagenPersonaje}" style="width: 100%;height: 50%;"/></td>
+                    <td th:text="${personaje.nombrePersonaje}">Muestra nombre</td>
+                    <td th:text="${personaje.edadPersona}">Muestra edad</td>
+                    <td th:text="${personaje.pesoPersonaje}"> Muestra peso</td>
+                    <td th:text="${personaje.historiaPersonaje}">Muestra historia</td>
+                    <td th:text="${personaje.peliculasAsociadasPersonaje}">Muestra pelicula asociada</td>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>
