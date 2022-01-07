@@ -25,24 +25,30 @@ public class ControladorRegistro {
     }
 
     @GetMapping("/registronuevo")
-    public String registro(Usuario usuario) {
+    public String registro() {
         return "registro";
     }
 
     @PostMapping("/guardarnuevoregistro")
-    public String guardarUsuarioNuevo(Usuario usuario) {
-        if (usuario != null) {
+    public String guardarUsuarioNuevo(@RequestParam("username")String username,@RequestParam("password")String password ) {
+       
+        
+        if (username != null && password != null) {
             String rol = "ROLE_USER";
             Long idAux;
             Rol rolAux = new Rol();
-            String pass = usuario.getPassword();
+            Usuario usuario = new Usuario();
+            
+            String passwordAux = password;
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-            usuario.setPassword(encoder.encode(pass));
+            usuario.setPassword(encoder.encode(passwordAux));            
+            usuario.setUsername(username);
+            usuarioServicio.save(usuario);
+            
             idAux = usuario.getIdUsuario();
-            rolAux.setNombre("ROLE_USER");
+            rolAux.setNombre(rol);
             rolAux.setIdUsuario(idAux);
             rolDao.save(rolAux);
-            usuarioServicio.save(usuario);
         }
         return "redirect:/login";
     }

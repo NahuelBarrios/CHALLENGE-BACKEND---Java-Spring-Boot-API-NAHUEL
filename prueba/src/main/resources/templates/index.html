@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" 
-    xmlns:th="http://www.thymeleaf.org">
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <head>
         <title>Inicio</title>
-        <meta charset="UTF-8">
+        <meta charset="UTF-8"/>
     </head>
     <body>
         
         
         <h1>Que desea?</h1>
         <br/><br/>
-        <form method="POST" th:action="@{/logout}">
+       <form method="POST" th:action="@{/logout}">
             <a href="#" onclick="this.parentNode.submit()">Cerrar sesion</a>
             <br/>
             <b>Bienvenid@: </b><span sec:authentication="name"> Nombre del usuario que hizo el login</span>
@@ -22,10 +23,10 @@
         <br/>
         <a th:href="@{/genero}">Generos</a>
         
-        <footer>
+         <footer>
             <b> Todos los derechos reservados. Nahuel Barrios 2022</b>
-            <b>Rol: </b><span sec:authentication="principal.authorities"> Roles</span>
+              <b>Rol: </b><span sec:authentication="principal.authorities"> Roles</span>
         </footer>
-       
+        
     </body>
 </html>

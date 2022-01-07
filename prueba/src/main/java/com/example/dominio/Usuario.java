@@ -17,10 +17,10 @@ public class Usuario implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUsuario;
     
-    @NotEmpty
+    //@NotEmpty
     private String username;
     
-    @NotEmpty
+   // @NotEmpty
     private String password;
     
     @OneToMany

@@ -9,12 +9,12 @@
     <body>
         <h1>Registro</h1>
         
-        <form th:action="@{/guardarnuevoregistro}" method="post" th:object="${usuario}">
+        <form th:action="@{/guardarnuevoregistro}" method="post">
             <label for="username">Nuevo Nombre de Usuario: </label>
-            <input type="text" name="username" th:field="*{username}"/>
+            <input type="text" name="username"/>
             <br/><br/>
             <label for="password">Nueva Contraseña: </label>
-            <input type="password" name="password" th:field="*{password}"/>
+            <input type="password" name="password"/>
             <br/><br/>
             <!--   <input type="hidden" name="roles" th:field="*{roles}"/>-->
             <input type="submit" name="guardar" value="Guardar"/>

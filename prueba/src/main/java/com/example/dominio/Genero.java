@@ -19,11 +19,11 @@ public class Genero {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idGenero;
-    @NotEmpty
+    //@NotEmpty
     private String nombreGenero;
-    @NotEmpty
+    //@NotEmpty
     private String imagenGenero;
-    @NotEmpty
+    //@NotEmpty
     private Integer peliculaAsociada;
     
 }

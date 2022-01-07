@@ -12,6 +12,7 @@ public class ConfiguracionWeb implements WebMvcConfigurer{
     {
         registro.addViewController("/").setViewName("index");
         registro.addViewController("/login");
+        registro.addViewController("/registronuevo");
     }
     
 }
