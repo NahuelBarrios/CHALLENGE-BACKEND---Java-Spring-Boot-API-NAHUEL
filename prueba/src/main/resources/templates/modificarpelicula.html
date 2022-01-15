@@ -33,7 +33,7 @@
                     <th sec:authorize="hasRole('ROLE_ADMIN')">Eliminar</th>
                 </tr>
                 <tr th:each="pelicula: ${peliculas}">
-                    <td><img th:src="@{'/imagenes/' + ${pelicula.imagenPeliculas}}" th:alt="${pelicula.imagenPeliculas}" style="width: 100%;height: 50%;"/></td>
+                    <td><img th:src="@{'/imagenes/' + ${pelicula.imagenPeliculas}}" th:alt="${pelicula.imagenPeliculas}" style="width: 100%;height: 100px;"/></td>
                     <td th:text="${pelicula.tituloPeliculas}">Muestra titulo</td>
                     <td th:text="${pelicula.fechaCreacion}">Muestra fecha de creacion</td>
                     <td th:text="${pelicula.calificacionPeliculas}"> Muestra calificacion</td>

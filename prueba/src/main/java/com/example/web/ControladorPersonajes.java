@@ -23,9 +23,10 @@ public class ControladorPersonajes {
 
     @Autowired
     private IPersonajeServicio personajeServicio;
-    
-    @Autowired IPeliculasServicio peliculaServicio;
-    
+
+    @Autowired
+    private IPeliculasServicio peliculaServicio;
+
     @GetMapping("/personaje")
     public String agregarpersonaje(Model model) //listar
     {
@@ -43,69 +44,75 @@ public class ControladorPersonajes {
 //            }
 //            }
 //        }
-        model.addAttribute("personajes",personajesAux);
+        var peliculaLista = peliculaServicio.listarPeliculas();
+        model.addAttribute("personajes", personajesAux);
+        model.addAttribute("listaPelicula", peliculaLista);
         return "modificarpersonaje";
     }
-    
+
     @PostMapping("/buscadorpersonaje")
-    public String buscarPersonaje(@RequestParam("titulo")String titulo,Model model)
-    {
+    public String buscarPersonaje(@RequestParam("titulo") String titulo, Model model) {
         var personajeLista = personajeServicio.listarPersonajes();
-        
-        for(var personajeAux : personajeLista)
+
+        if(titulo.isEmpty())
         {
-            if(personajeAux.getNombrePersonaje().equals(titulo))
-            {
-                model.addAttribute("personaje",personajeAux);
-            }
-            
+            return "redirect:/";
         }
         
+        for (var personajeAux : personajeLista) {
+            if (personajeAux.getNombrePersonaje().equals(titulo)) {
+                model.addAttribute("personaje", personajeAux);
+                var peliculaLista = peliculaServicio.listarPeliculas();
+                model.addAttribute("listaPelicula", peliculaLista);
+            }
+
+        }
+
         return "personajebuscador";
     }
-    
+
     @GetMapping("/agregarnuevopersonaje")
-    public String agregarNuevoPersonaje(Personaje personaje)
-    {
+    public String agregarNuevoPersonaje(Personaje personaje, Model model) {
+        var moviesAux = peliculaServicio.listarPeliculas();
+        model.addAttribute("movielist", moviesAux);
+
         return "nuevopersonaje";
     }
-    
+
     @PostMapping("/guardarpersonajenuevo")
-    public String guardarpersonajenuevo(Personaje personaje,@RequestParam("file") MultipartFile imagen)
-    {
-        if(!imagen.isEmpty())
-        {
+    public String guardarpersonajenuevo(Personaje personaje, @RequestParam("file") MultipartFile imagen) {
+        if (!imagen.isEmpty()) {
             Path directorioImagenes = Paths.get("src//main//resources//static/imagenes");
             String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
-            
+
             try {
                 byte[] bytesImg = imagen.getBytes();
                 Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
-                Files.write(rutaCompleta,bytesImg);
+                Files.write(rutaCompleta, bytesImg);
                 personaje.setImagenPersonaje(imagen.getOriginalFilename());
             } catch (IOException ex) {
                 ex.printStackTrace(System.out);
             }
         }
-        
+
         personajeServicio.guardarPersonaje(personaje);
         return "redirect:/";
     }
-    
+
     @GetMapping("/editarpersonaje/{idPersonaje}")
-    public String editarpersonaje(Personaje personaje,Model model)
-    {
+    public String editarpersonaje(Personaje personaje, Model model) {
         personaje = personajeServicio.encontrarPersonaje(personaje);
         model.addAttribute("personaje", personaje);
+        var moviesAux = peliculaServicio.listarPeliculas();
+        model.addAttribute("movielist", moviesAux);
         return "nuevopersonaje";
     }
-    
+
     @GetMapping("/eliminarpersonaje/{idPersonaje}")
-    public String eliminarpersonaje(Personaje personaje)
-    {
+    public String eliminarpersonaje(Personaje personaje) {
         personajeServicio.eliminarPersonaje(personaje);
-        
+
         return "redirect:/";
     }
-    
+
 }

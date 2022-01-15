@@ -24,8 +24,8 @@
                 </tr>
                 <tr th:each="genero : ${generos}">
                     <td th:text="${genero.nombreGenero}">Muestra Nombre</td>
-                    <td><img th:src="@{'/imagenes/' + ${genero.imagenGenero}}" th:alt="${genero.imagenGenero}" style="width: 100%;height: 50%;"/></td>
-                    <td th:text="${genero.peliculaAsociada}">Muestra Pelicula</td>
+                    <td><img th:src="@{'/imagenes/' + ${genero.imagenGenero}}" th:alt="${genero.imagenGenero}" style="width: 100%;height: 100px;"/></td>
+                    <td th:each="pelicula: ${listaPelicula}" th:if="${pelicula.idPeliculas == genero.peliculaAsociada}" th:text="${pelicula.tituloPeliculas}">Muestra Pelicula</td>
                     <td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/editargenero/} + ${genero.idGenero}" th:text="Editar"/></td>
                     <td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/eliminargenero/} + ${genero.idGenero}" th:text="Eliminar"/></td>
                 </tr>

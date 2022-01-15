@@ -34,6 +34,11 @@ public class ControladorPeliculas {
     {
         var peliculaLista = peliculasServicio.listarPeliculas();
         
+        if(titulo.isEmpty())
+        {
+            return "redirect:/";
+        }
+        
         for(var peliculaAux : peliculaLista)
         {
             if(peliculaAux.getTituloPeliculas().equals(titulo))

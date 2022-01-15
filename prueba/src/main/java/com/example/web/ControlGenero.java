@@ -2,6 +2,7 @@ package com.example.web;
 
 import com.example.dominio.Genero;
 import com.example.service.IGeneroServicio;
+import com.example.service.IPeliculasServicio;
 import java.io.IOException;
 import java.nio.file.*;
 import lombok.extern.slf4j.Slf4j;
@@ -19,19 +20,26 @@ public class ControlGenero {
     @Autowired
     private IGeneroServicio generoServicio;
     
+    @Autowired 
+    private IPeliculasServicio peliculaServicio;
+    
     @GetMapping("/genero")
     public String agregarGenero(Model model) //listar
     {
         var generosAux = generoServicio.listarGeneros();
-        
+        var peliculaLista = peliculaServicio.listarPeliculas();
+        model.addAttribute("listaPelicula", peliculaLista);
         model.addAttribute("generos",generosAux);        
         
         return "modificargenero";
     }
  
     @GetMapping("/agregarnuevogenero")
-    public String agregarNuevoGenero(Genero genero)
+    public String agregarNuevoGenero(Genero genero,Model model)
     {
+        var moviesAux = peliculaServicio.listarPeliculas();
+        model.addAttribute("movielist", moviesAux);
+        
         return "nuevogenero";
     }
     
@@ -61,6 +69,8 @@ public class ControlGenero {
     public String editarpersonaje(Genero genero,Model model)
     {
         genero = generoServicio.encontrarGenero(genero);
+        var moviesAux = peliculaServicio.listarPeliculas();
+        model.addAttribute("movielist", moviesAux);
         model.addAttribute("genero", genero);
         return "nuevogenero";
     }

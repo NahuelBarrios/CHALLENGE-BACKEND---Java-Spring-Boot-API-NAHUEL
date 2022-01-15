@@ -10,6 +10,11 @@
         <a th:href="@{/}">Volver al inicio</a>
         <br/><br/>
         <form th:action="@{/guardargeneronuevo}" method="post" th:object="${genero}" enctype="multipart/form-data">
+            <select th:if="${movielist != null}" th:field="*{peliculaAsociada}">
+                <option th:each="movieAux : ${movielist}" th:value="${movieAux.idPeliculas}" th:text="${movieAux.tituloPeliculas}">    <!--  th:value="${movieparameter.idMovie}" th:text="${movieparameter.titleMovie}" -->
+                </option>
+            </select>
+            <br/><br/>
             <input type="hidden" name="idGenero" th:field="*{idGenero}"/> <!-- Le ponemos el hidden. ya que sino al editar, no guardamos el Id y no nos va a editar la info, va a agregar otro personaje con la nueva info y la vieja sigue igual. En el caso de hacer un insert, el id va a ser null entonces se hace un add. pero si tiene valor, se hace un update -->
             <label for="nombreGenero">Nombre: </label>
             <input type="text" name="nombreGenero" th:field="*{nombreGenero}"/>
